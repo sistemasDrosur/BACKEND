@@ -14,9 +14,8 @@ const connection = mysql.createConnection({
 connection.connect((error) => {
   if(!!error){
     console.log(error);
-  } else {
-    console.log("Connected...!");
   }
+    console.log("Database is already Connected...!");
 })
 
 module.exports = connection;

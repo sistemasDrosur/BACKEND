@@ -1,0 +1,13 @@
+extends layout.pug 
+
+block content 
+
+        div(class="container")
+            h1 TODOS LOS USUARIOS DE LA ORGANIZACIÓN:
+            each user in rows
+                div(class="card")
+                    h2= user.nombreusuario
+                    h3= user.cargousuario
+                    h3= user.areausuario 
+                    h3= user.estado 
+                    h3= user.sucursal
