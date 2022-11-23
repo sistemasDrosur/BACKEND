@@ -6,7 +6,7 @@ const pool = require("../database/mysql");
 router.get("/", async (req, res) => {
     await pool.getConnection((err, connection) => {
         if(err) throw err
-        connection.query(`SELECT * FROM usuarios ORDER BY idusuarios DESC`, (err, rows) =>{
+        connection.query(`SELECT * FROM usuarios ORDER BY idusuarios DESC `, (err, rows) =>{
             connection.release()
             if(!err){
                 res.status(200).json(rows)

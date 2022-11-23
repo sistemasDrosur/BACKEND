@@ -25,6 +25,8 @@ app.use(express.urlencoded({
 }));
 app.use(cors());
 
+app.use('/static', express.static('static'))
+
 // Using of middlewares
 app.use("/", test);
 

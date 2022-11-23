@@ -1,30 +1,14 @@
 <script>
-  import User from "./components/users.svelte";
+  import Navbar from "./components/Navbar.svelte";
+  import User from "./components/Users.svelte";
+  import Footer from "./components/Footer.svelte";
 </script>
 
 <main>
-  <h1>Bienvenido a Drosur</h1>
+  <Navbar />
   <User />
+  <Footer />
 </main>
 
 <style>
-  main {
-    text-align: center;
-    padding: 1em;
-    max-width: 240px;
-    margin: 0 auto;
-  }
-
-  h1 {
-    color: #ff3e00;
-    text-transform: uppercase;
-    font-size: 4em;
-    font-weight: 100;
-  }
-
-  @media (min-width: 640px) {
-    main {
-      max-width: none;
-    }
-  }
 </style>
