@@ -1,14 +1,20 @@
 <script>
   import Card from "./Card.svelte";
-  import axios from "axios";
+  import SearchBar from "./SearchBar.svelte";
   import { onMount } from "svelte";
+  import { loading, users } from "../store/store";
 
-  let users = [];
+  let usuario = [];
 
-  const getUsers = () => {
-    axios.get("http://localhost:3000/api/users").then((res) => {
-      users = res.data;
-    });
+  const getUsers = async () => {
+    users.set([]);
+    loading.set(true);
+    const res = await fetch("http://localhost:3000/api/users");
+    const data = await res.json();
+    setTimeout(() => {
+      users.set(data);
+      loading.set(false);
+    }, 2000);
   };
 
   onMount(getUsers);
@@ -16,12 +22,13 @@
 
 <div class="users">
   <h1 class="users-title">Lista de usuarios</h1>
-  {#await users}
-    <h2>Loading....</h2>
-  {:then users}
-    <ul>
-      <div class="user-content">
-        {#each users as usuario}
+  <SearchBar />
+  <ul>
+    <div class="user-content">
+      {#if $loading === true}
+        <h2 class="loading">Loading ....</h2>
+      {:else}
+        {#each $users as usuario}
           <Card>
             <li>
               <h2>{usuario.nombreusuario}</h2>
@@ -32,11 +39,9 @@
             </li>
           </Card>
         {/each}
-      </div>
-    </ul>
-  {:catch err}
-    <h2>Error while loading the data {err}</h2>
-  {/await}
+      {/if}
+    </div>
+  </ul>
 </div>
 
 <style>

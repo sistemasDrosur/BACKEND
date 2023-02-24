@@ -2,6 +2,10 @@ const { Router } = require("express");
 const router = Router();
 const pool = require("../database/mysql");
 
+const NodeCache = require("node-cache");
+
+const myCache = new NodeCache({ stdTTL: 10 });
+
 // Get all of users
 router.get("/", async (req, res) => {
     await pool.getConnection((err, connection) => {
@@ -9,6 +13,7 @@ router.get("/", async (req, res) => {
         connection.query(`SELECT * FROM usuarios ORDER BY idusuarios DESC `, (err, rows) =>{
             connection.release()
             if(!err){
+                myCache.set(rows, json);
                 res.status(200).json(rows)
             } else {
                 res.status(500).send(`Ocurrio el siguiente error ${err.message}`);
@@ -25,6 +30,7 @@ router.get("/:id", async (req, res) => {
         connection.query(`SELECT * FROM usuarios WHERE idusuarios = ?`, [id], (err, rows) =>{
             connection.release()
             if(!err){
+                myCache.set(rows, json);
                 res.status(200).json(rows)
             } else {
                 res.status(500).send(`Ocurrio el siguiente error ${err.message}`);

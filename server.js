@@ -4,6 +4,7 @@ const exphbs = require("express-handlebars");
 const cors = require("cors");
 const path = require("path");
 
+
 // Imports of Routes
 const index = require("./Routes/index");
 const users = require("./Routes/user");
@@ -15,6 +16,7 @@ const test = require("./middlewares/test");
 
 const app = express();
 const port = process.env.PORT || 3000;
+
 
 app.use(morgan("tiny"));
 
